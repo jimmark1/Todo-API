@@ -111,7 +111,7 @@ class ForgotPasswordView(APIView):
         user.save()
 
         # Send password reset email
-        reset_url = f'https://todo-api-production-065e.up.railway.app/reset-password/{token}/'
+        reset_url = f'https://just-do-it-ten.vercel.app/reset-password/{token}/'
         send_mail(
             'Reset your password',
             f'Hi, here is the link to reset your password: {reset_url}',
