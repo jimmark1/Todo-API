@@ -223,4 +223,4 @@ PASSWORD_RESET_TIMEOUT=300 #5 minutes
 
 
 if os.environ.get('RUN_MAIN', None) != 'true':
-    import todo_api.apscheduler  # import the apscheduler file
+    import todo_api.apscheduler  
