@@ -36,8 +36,6 @@ class RegisterView(APIView):
                                           password=password
                                           
                                    )
-                                   
-                                          
                                    user.save()
                                    return Response({'success' :'User account created successfully'},
                                                  status=status.HTTP_201_CREATED
@@ -51,7 +49,6 @@ class RegisterView(APIView):
                                    {'error' : 'Password must be atleast 8 characters'},
                                    status=status.HTTP_400_BAD_REQUEST
                                    )                           
-                    
               else:
                      return Response(
                            {'error' : 'Passwords do not match'},
@@ -94,46 +91,4 @@ class TokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class TokenObtainPairView(TokenObtainPairView):
     serializer_class = TokenObtainPairSerializer
-
-
-class ForgotPasswordView(APIView):
-    def post(self, request):
-        email = request.data['email']
-        try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
-            print('User not found.')
-            return Response({'error': 'User Does not exists'}, status=status.HTTP_404_NOT_FOUND)
-
-        # Generate unique token and save to database
-        token = get_random_string(length=32)
-        user.password_reset_token = token
-        user.save()
-
-        # Send password reset email
-        reset_url = f'https://just-do-it-ten.vercel.app/reset-password/{token}/'
-        send_mail(
-            'Reset your password',
-            f'Hi, here is the link to reset your password: {reset_url}',
-            '',
-            [email],
-            fail_silently=False,
-        )
-
-        return Response({'success': 'An email will be sent to your email address'}, status=status.HTTP_200_OK)
-
-class ResetPasswordView(APIView):
-    def post(self, request, token):
-        try:
-            user = User.objects.get(password_reset_token=token)
-        except User.DoesNotExist :
-            return Response({'error': 'User Does not exists'}, status=status.HTTP_400_BAD_REQUEST)
-
-        # Update user password
-        user.set_password(request.data['password'])
-        user.password_reset_token = None
-        user.save()
-
-        return Response({'success': 'Password reset successfully'}, status=status.HTTP_200_OK)
-
-
+    
