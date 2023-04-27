@@ -12,6 +12,4 @@ urlpatterns = [
     #SIMPLE JWT AUTHENTICATION
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('forgot-password/', ForgotPasswordView.as_view()),
-    path('reset-password/<str:token>/', ResetPasswordView.as_view()),
 ]
