@@ -4,9 +4,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
 
-from django.utils.crypto import get_random_string
-from django.core.mail import send_mail
-
 from . serializers import UserManagerSerializer
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
